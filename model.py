@@ -26,4 +26,5 @@ class BERTPredictor(nn.Module):
         linear_output = self.linear1(dropout_output)
         sigmoid_layer = self.sigmoid(linear_output)
         final_layer = self.softmax(sigmoid_layer)
+        #final_layer = linear_output
         return final_layer

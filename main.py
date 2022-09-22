@@ -32,12 +32,13 @@ if __name__ == '__main__':
         for batch in loop:
             #input_ids = torch.cat((batch['student_answer'], batch['reference_answer'])).to(device)
             #attention_mask = torch.cat((batch['student_answer_attn'], batch['reference_answer_attn'])).to(device)
-            input_ids = batch['student_answer']
-            attention_mask = batch['student_answer_attn']
+            input_ids = batch['student_answer'].to(device)
+            attention_mask = batch['student_answer_attn'].to(device)
             # train model on batch and return outputs (incl. loss)
             targets = batch['label'].to(device)
             output = bert_pred.forward(input_ids, attention_mask)
-            loss = torch.nn.CrossEntropyLoss()(output, targets.float())
+            print(output)
+            loss = torch.nn.BCELoss()(output, targets.float())
             optimizer.zero_grad()
             loss.backward()
             loop.set_postfix(loss=loss.item())

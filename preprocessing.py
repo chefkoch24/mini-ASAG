@@ -42,11 +42,11 @@ def preprocessing(path, file, tokenizer, language="en", with_questions=True, sco
 
                     label = x.find('verification_feedback').text
                     if label == "Correct":
-                        label = [1, 0, 0]
+                        label = 0
                     elif label == "Partially correct":
-                        label = [0, 1, 0]
+                        label = 1
                     elif label == "Incorrect":
-                        label = [0, 0, 1]
+                        label = 2
 
                     # lowercase data
                     data.append([
