@@ -18,7 +18,6 @@ class BERTPredictor(nn.Module):
 
     def forward(self, input_ids, attention_mask, token_type_ids=None):
         outputs = self.model(input_ids, attention_mask=attention_mask, token_type_ids=token_type_ids, return_dict=False)
-        print(outputs)
         pooled_output = outputs[1]
         pooled_output = self.dropout(pooled_output)
         logits = self.classifier(pooled_output)
