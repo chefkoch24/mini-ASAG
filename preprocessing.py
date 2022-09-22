@@ -50,8 +50,8 @@ def preprocessing(path, file, tokenizer, language="en", with_questions=True, sco
 
                     # lowercase data
                     data.append([
-                        tokenizer(response.lower(), ref.lower(), truncation=True, max_length=MAX_TOKENS,padding=True).input_ids,
-                        tokenizer(response.lower(), ref.lower(), truncation=True, max_length=MAX_TOKENS, padding=True).attention_mask,
+                        tokenizer(response.lower(), ref.lower(), truncation=True, max_length=MAX_TOKENS).input_ids,
+                        tokenizer(response.lower(), ref.lower(), truncation=True, max_length=MAX_TOKENS).attention_mask,
                         tokenizer(response.lower(), ref.lower(), truncation=True, max_length=MAX_TOKENS,
                                   padding=True).token_type_ids,
 

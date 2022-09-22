@@ -14,17 +14,11 @@ class BERTPredictor(nn.Module):
         self.model = BertForSequenceClassification.from_pretrained('bert-base-uncased')
         self.dropout = torch.nn.Dropout(0.3)
         # num classes
-        self.linear1 = torch.nn.Linear(768, 3)
-        self.relu = nn.ReLU()
-        # self.weights = torch.FloatTensor(weights).to(device)
-        self.sigmoid = nn.Sigmoid()
-        self.softmax = nn.Softmax()
+        self.classifier = torch.nn.Linear(768, 3)
 
-    def forward(self, input_ids, attention_mask):
-        _,encodings = self.model(input_ids, attention_mask=attention_mask, return_dict=False)
-        dropout_output = self.dropout(encodings)
-        linear_output = self.linear1(dropout_output)
-        sigmoid_layer = self.sigmoid(linear_output)
-        final_layer = self.softmax(sigmoid_layer, dim=0)
-        #final_layer = linear_output
-        return final_layer
+    def forward(self, input_ids, attention_mask, token_type_ids=None):
+        outputs = self.model(input_ids, attention_mask=attention_mask, token_type_ids=token_type_ids, return_dict=False)
+        pooled_output = outputs[1]
+        pooled_output = self.dropout(pooled_output)
+        logits = self.classifier(pooled_output)
+        return logits
