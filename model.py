@@ -21,7 +21,7 @@ class BERTPredictor(nn.Module):
         self.softmax = nn.Softmax()
 
     def forward(self, input_ids, attention_mask):
-        _, encodings = self.model(input_ids, attention_mask=attention_mask, return_dict=False)
+        _,encodings = self.model(input_ids, attention_mask=attention_mask, return_dict=False)
         dropout_output = self.dropout(encodings)
         linear_output = self.linear1(dropout_output)
         sigmoid_layer = self.sigmoid(linear_output)

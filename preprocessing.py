@@ -7,7 +7,7 @@ import xml.etree.ElementTree as et
 ########################################################################################################################
 # language
 LANG = 'both'  # 'en' or 'ger' or 'both'
-MAX_TOKENS = 256
+MAX_TOKENS = 256*2
 OUTPUT_LENGTH = 126
 ########################################################################################################################
 
@@ -50,8 +50,8 @@ def preprocessing(path, file, tokenizer, language="en", with_questions=True, sco
 
                     # lowercase data
                     data.append([
-                        tokenizer(question.lower(), max_length=MAX_TOKENS, padding='max_length', truncation=True).input_ids,
-                        tokenizer(question.lower(), max_length=MAX_TOKENS, padding='max_length', truncation=True).attention_mask,
+                        tokenizer(question.lower(), ref.lower(), max_length=MAX_TOKENS, padding='max_length', truncation=True).input_ids,
+                        tokenizer(question.lower(),ref.lower(), max_length=MAX_TOKENS, padding='max_length', truncation=True).attention_mask,
                         tokenizer(ref.lower(), max_length=MAX_TOKENS, padding='max_length', truncation=True).input_ids,
                         tokenizer(ref.lower(), max_length=MAX_TOKENS, padding='max_length',
                                   truncation=True).attention_mask,
