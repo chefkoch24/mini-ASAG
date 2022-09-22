@@ -50,17 +50,11 @@ def preprocessing(path, file, tokenizer, language="en", with_questions=True, sco
 
                     # lowercase data
                     data.append([
-                        tokenizer(question.lower(), ref.lower(), max_length=MAX_TOKENS, padding='max_length', truncation=True).input_ids,
-                        tokenizer(question.lower(),ref.lower(), max_length=MAX_TOKENS, padding='max_length', truncation=True).attention_mask,
-                        tokenizer(ref.lower(), max_length=MAX_TOKENS, padding='max_length', truncation=True).input_ids,
-                        tokenizer(ref.lower(), max_length=MAX_TOKENS, padding='max_length',
-                                  truncation=True).attention_mask,
-                        tokenizer(response.lower(), max_length=MAX_TOKENS, padding='max_length', truncation=True).input_ids,
-                        tokenizer(response.lower(), max_length=MAX_TOKENS, padding='max_length',
-                                  truncation=True).attention_mask,
-                        tokenizer(feedback.lower(), max_length=MAX_TOKENS, padding='max_length', truncation=True).input_ids,
-                        tokenizer(feedback.lower(), max_length=MAX_TOKENS, padding='max_length',
-                                  truncation=True).attention_mask,
+                        tokenizer(response.lower(), ref.lower(), truncation=True, max_length=MAX_TOKENS,padding=True).input_ids,
+                        tokenizer(response.lower(), ref.lower(), truncation=True, max_length=MAX_TOKENS, padding=True).attention_mask,
+                        tokenizer(response.lower(), ref.lower(), truncation=True, max_length=MAX_TOKENS,
+                                  padding=True).token_type_ids,
+
                         label
                     ])
     utils.save(file, data)

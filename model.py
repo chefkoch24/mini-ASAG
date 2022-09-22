@@ -1,5 +1,5 @@
 import torch
-from transformers import BertModel, BertTokenizer, BertConfig
+from transformers import BertModel, BertTokenizer, BertConfig, BertForSequenceClassification
 from torch.utils.data import Dataset, DataLoader
 from transformers import AdamW
 from tqdm import tqdm
@@ -11,7 +11,7 @@ import numpy as np
 class BERTPredictor(nn.Module):
     def __init__(self):
         super(BERTPredictor, self).__init__()
-        self.model = BertModel.from_pretrained('bert-base-uncased')
+        self.model = BertForSequenceClassification.from_pretrained('bert-base-uncased')
         self.dropout = torch.nn.Dropout(0.3)
         # num classes
         self.linear1 = torch.nn.Linear(768, 3)
@@ -25,6 +25,6 @@ class BERTPredictor(nn.Module):
         dropout_output = self.dropout(encodings)
         linear_output = self.linear1(dropout_output)
         sigmoid_layer = self.sigmoid(linear_output)
-        final_layer = self.softmax(sigmoid_layer)
+        final_layer = self.softmax(sigmoid_layer, dim=0)
         #final_layer = linear_output
         return final_layer
