@@ -53,7 +53,7 @@ def preprocessing(path, file, tokenizer, language="en", with_questions=True, sco
                         tokenizer(response.lower(), ref.lower(), truncation=True, max_length=MAX_TOKENS).input_ids,
                         tokenizer(response.lower(), ref.lower(), truncation=True, max_length=MAX_TOKENS).attention_mask,
                         tokenizer(response.lower(), ref.lower(), truncation=True, max_length=MAX_TOKENS).token_type_ids,
-                        label
+                        [label]
                     ])
     utils.save(file, data)
 

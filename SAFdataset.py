@@ -11,5 +11,5 @@ class SAFDataset(Dataset):
 
     def __getitem__(self, idx):
         data = self.dataset[idx]
-        item = {'input_ids': data[0], 'attention_mask': data[1], 'token_type_ids': data[2], 'labels': data[3] }
+        item = {'input_ids': torch.tensor(data[0]).long(), 'attention_mask': torch.tensor(data[1]).long(), 'token_type_ids': torch.tensor(data[2]).long(), 'labels': torch.tensor(data[3]).long() }
         return item
